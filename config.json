@@ -1,0 +1,10 @@
+{
+    "secret": "MY_GITHUB_SECRET",
+    "port": 8888,
+    "repos": {
+        "mcisback/nodedeployman": {
+            "path": "/home/mcisback/Dev/NodeDeployMan",
+            "cmd": "cd ${directory} && echo 'Dir is: ' `pwd`"
+        }
+    }
+}
