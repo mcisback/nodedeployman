@@ -7,6 +7,28 @@ import config from './config.json';
 console.log(`[+] Starting Server on port ${config.port} ...`);
 // console.log('[+] Config is: ', config);
 
+/*
+! This Code is just for debug and testing purposes
+
+const repo = config.repos["mcisback/nodedeployman"]
+const directory='/var/www'
+console.log('[+] Raw Cmd is: \"', repo.cmd, "\"")
+
+var cmdFun = eval(repo.cmd)
+const cmd = cmdFun({directory: directory})
+
+console.log(`[+] Testing command: `, cmd)
+
+try {
+  var childProcess = exec(cmd);
+
+  childProcess.stdout.on('data', function(data) {
+    console.log('childProcess stdout: ', data); 
+  });
+} catch(err) {
+  console.log('err: ', err)
+} */
+
 http
   .createServer((req, res) => {
     req.on('data', chunk => {
@@ -27,9 +49,17 @@ http
       if (isAllowed && isMaster && directory) {
         try {
           // let cmd = `cd ${directory} && /bin/chmod +x gitpull.sh && /bin/bash gitpull.sh`;
-	        console.log('Executing Cmd: ', `${repoCmd}`);
+          var cmdFun = eval(repoCmd);
+          const cmd = cmdFun({directory: directory});
+          
+          console.log('Executing Cmd: ', cmd);
 	
-          exec(`${repoCmd}`);
+          var childProcess = exec(cmd);
+
+          // Logs childProcess Output
+          childProcess.stdout.on('data', function(data) {
+            console.log('childProcess stdout: ', data); 
+          });
         } catch (error) {
           console.log('Executing Cmd Error: ', error);
         }
