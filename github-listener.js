@@ -41,16 +41,16 @@ http
       const isMaster = body?.ref === 'refs/heads/master';
       const repoName = body?.repository?.full_name;
       const repoCmd = config.repos[repoName].cmd;
-      const directory = config.repos[repoName].path;
+      const destpath = config.repos[repoName].destpath;
       
       console.log('[+] Received Webhook From Github');
       console.log('[++] For Repo ', repoName);
 
-      if (isAllowed && isMaster && directory) {
+      if (isAllowed && isMaster && destpath) {
         try {
-          // let cmd = `cd ${directory} && /bin/chmod +x gitpull.sh && /bin/bash gitpull.sh`;
+          // let cmd = `cd ${destpath} && /bin/chmod +x gitpull.sh && /bin/bash gitpull.sh`;
           var cmdFun = eval(repoCmd);
-          const cmd = cmdFun({directory: directory});
+          const cmd = cmdFun({destpath: destpath});
           
           console.log('Executing Cmd: ', cmd);
 	
