@@ -8,7 +8,13 @@ console.log(`[+] Starting Server on port ${config.port} ...`);
 
 http
   .createServer((req, res) => {
+  	 
+	 console.log('[+] Received New Request: ', req)
+
     req.on('data', chunk => {
+	 	
+		console.log('[+] Received Data for Request: ', chunk)
+
       const signature = `sha1=${crypto
         .createHmac('sha1', config.secret)
         .update(chunk)
@@ -20,8 +26,11 @@ http
       const repoCmd = config.repos[repoName].cmd;
       const destpath = config.repos[repoName].destpath;
       
-      console.log('[+] Received Webhook From Github');
-      console.log('[++] For Repo ', repoName);
+      console.log('[+] Received Webhook From Github')
+      console.log('[++] For Repo: ', repoName)
+		console.log('[++] isMaster: ', isMaster)
+		console.log('[++] repoCmd: ', repoCmd)
+		console.log('[++] destpath: ', destpath)
 
       if (isAllowed && isMaster && destpath) {
         try {
@@ -29,19 +38,20 @@ http
           var cmdFun = eval(repoCmd);
           const cmd = cmdFun({destpath: destpath});
           
-          console.log('Executing Cmd: ', cmd);
+          console.log('[++] Executing Cmd: ', cmd);
 	
           var childProcess = exec(cmd);
 
           // Logs childProcess Output
           childProcess.stdout.on('data', function(data) {
-            console.log('childProcess stdout: ', data); 
+            console.log('[++] childProcess stdout: ', data); 
           });
         } catch (error) {
-          console.log('Executing Cmd Error: ', error);
+          console.log('[!!] Executing Cmd Error: ', error);
         }
       }
     });
     res.end();
   })
   .listen(config.port);
+
