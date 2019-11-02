@@ -5,29 +5,6 @@ import { exec } from 'child_process';
 import config from './config.json';
 
 console.log(`[+] Starting Server on port ${config.port} ...`);
-// console.log('[+] Config is: ', config);
-
-/*
-! This Code is just for debug and testing purposes
-
-const repo = config.repos["mcisback/nodedeployman"]
-const directory='/var/www'
-console.log('[+] Raw Cmd is: \"', repo.cmd, "\"")
-
-var cmdFun = eval(repo.cmd)
-const cmd = cmdFun({directory: directory})
-
-console.log(`[+] Testing command: `, cmd)
-
-try {
-  var childProcess = exec(cmd);
-
-  childProcess.stdout.on('data', function(data) {
-    console.log('childProcess stdout: ', data); 
-  });
-} catch(err) {
-  console.log('err: ', err)
-} */
 
 http
   .createServer((req, res) => {
