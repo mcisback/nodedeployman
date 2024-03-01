@@ -13,5 +13,8 @@
     "@babel/plugin-proposal-optional-chaining": "^7.6.0",
     "@babel/preset-env": "^7.6.3",
     "@babel/register": "^7.6.2"
+  },
+  "dependencies": {
+    "node-gitlab-webhook": "^1.0.6"
   }
 }

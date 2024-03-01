@@ -1,6 +1,6 @@
 {
     "secret": "MY_GITHUB_SECRET",
-    "port": 8888,
+    "port": 7877,
     "repos": {
         "mcisback/nodedeployman": {
             "destpath": "/home/mcisback/Dev/NodeDeployMan",
