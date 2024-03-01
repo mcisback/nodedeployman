@@ -1,0 +1,19 @@
+version: '3.7'
+
+services:
+  nodeserver:
+    build:
+      context: ..
+      dockerfile: ./docker/Dockerfile
+    # image: node@latest
+    container_name: nodeserver
+    # restart: unless-stopped
+    env_file: .env
+    environment:
+      PORT: ${PORT}
+      SCRIPTS_PATH: ${SCRIPTS_PATH}
+    ports:
+      - "${PORT}:${PORT}"
+    # volumes:
+    #   - sshstorage:/storage:rw
+    network_mode: bridge
